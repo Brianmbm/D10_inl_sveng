@@ -65,7 +65,7 @@
                 {
                     foreach (SweEngGloss gloss in dictionary)
                     {
-                        Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
+                        Console.WriteLine($"{gloss.word_swe}  - {gloss.word_eng}"); //Removed "-10", unclear if it did anything
                     }
                 }
                 else if (command == "new")
@@ -77,10 +77,10 @@
                     else if (argument.Length == 1)
                     {
                         Console.WriteLine("Write word in Swedish: ");
-                        string s = Console.ReadLine();
+                        string swedishWord = Console.ReadLine();
                         Console.Write("Write word in English: ");
-                        string e = Console.ReadLine();
-                        dictionary.Add(new SweEngGloss(s, e));
+                        string englishWord = Console.ReadLine();
+                        dictionary.Add(new SweEngGloss(swedishWord, englishWord));
                     }
                 }
                 else if (command == "delete")
@@ -127,12 +127,12 @@
                     else if (argument.Length == 1)
                     {
                         Console.WriteLine("Write word to be translated: ");
-                        string s = Console.ReadLine();
+                        string translateWord = Console.ReadLine();
                         foreach (SweEngGloss gloss in dictionary)
                         {
-                            if (gloss.word_swe == s)
+                            if (gloss.word_swe == translateWord)
                                 Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
-                            if (gloss.word_eng == s)
+                            if (gloss.word_eng == translateWord)
                                 Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
                         }
                     }
