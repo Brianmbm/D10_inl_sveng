@@ -34,11 +34,18 @@
                 else if (command == "load")
                 {
                     
-                    if (argument.Length == 2)//FIXME: "System.IO.FileNotFoundException" if file doesnt exist
+                    if (argument.Length == 2)
                     {
-                        using (StreamReader sr = new StreamReader(path +argument[1]))
+                        try
                         {
-                            Load(sr);
+                            using (StreamReader sr = new StreamReader(path + argument[1]))
+                            {
+                                Load(sr);
+                            }
+                        }
+                        catch (Exception FileNotFoundException)
+                        {
+                            Console.WriteLine("File not found");
                         }
                     }
                     else if (argument.Length == 1)
