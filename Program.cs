@@ -56,11 +56,18 @@
                         }
                     }
                 }
-                else if (command == "list")//FIXME: If list before load "System.NullReferenceException", add try/catch
+                else if (command == "list")
                 {
-                    foreach (SweEngGloss gloss in dictionary)
+                    try
                     {
-                        Console.WriteLine($"{gloss.word_swe}  - {gloss.word_eng}"); //Removed "-10", unclear if it did anything
+                        foreach (SweEngGloss gloss in dictionary)
+                        {
+                            Console.WriteLine($"{gloss.word_swe}  - {gloss.word_eng}"); //Removed "-10", unclear if it did anything
+                        }
+                    }
+                    catch(Exception NullReferenceException)
+                    {
+                        Console.WriteLine("Load file before listing");
                     }
                 }
                 else if (command == "new")
