@@ -20,6 +20,7 @@
         {
             string defaultFile = "..\\..\\..\\dict\\sweeng.lis";
             Console.WriteLine("Welcome to the dictionary app!");
+            Help();
             do
             {
                 Console.Write("> ");
@@ -31,7 +32,7 @@
                 }
                 else if (command == "load")
                 {
-                    if(argument.Length == 2)
+                    if (argument.Length == 2)
                     {
                         using (StreamReader sr = new StreamReader(argument[1]))
                         {
@@ -45,7 +46,7 @@
                             }
                         }
                     }
-                    else if(argument.Length == 1)
+                    else if (argument.Length == 1)
                     {
                         using (StreamReader sr = new StreamReader(defaultFile))
                         {
@@ -60,9 +61,9 @@
                         }
                     }
                 }
-                else if (command == "list")
+                else if (command == "list")//FIXME: If list before load "System.NullReferenceException", add try/catch
                 {
-                    foreach(SweEngGloss gloss in dictionary)
+                    foreach (SweEngGloss gloss in dictionary)
                     {
                         Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
                     }
@@ -73,7 +74,7 @@
                     {
                         dictionary.Add(new SweEngGloss(argument[1], argument[2]));
                     }
-                    else if(argument.Length == 1)
+                    else if (argument.Length == 1)
                     {
                         Console.WriteLine("Write word in Swedish: ");
                         string s = Console.ReadLine();
@@ -87,7 +88,8 @@
                     if (argument.Length == 3)
                     {
                         int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++) {
+                        for (int i = 0; i < dictionary.Count; i++)
+                        {
                             SweEngGloss gloss = dictionary[i];
                             if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
                                 index = i;
@@ -114,7 +116,7 @@
                 {
                     if (argument.Length == 2)
                     {
-                        foreach(SweEngGloss gloss in dictionary)
+                        foreach (SweEngGloss gloss in dictionary)
                         {
                             if (gloss.word_swe == argument[1])
                                 Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
@@ -135,12 +137,31 @@
                         }
                     }
                 }
+                else if (command == "help")
+                {
+                    Help();
+                }
                 else
                 {
                     Console.WriteLine($"Unknown command: '{command}'");
                 }
             }
             while (true);
+        }
+        static void Help()
+        {
+            Console.WriteLine("Commands:\nhelp - show commands" +
+                "                       \nlist - list saved words" +
+                "                       \nload - load file" +
+                "                       \nload /file/ - load with specified file name" +
+                "                       \nnew - add new words with prompts" +
+                "                       \nnew /word in swedish/ /word in english/ - add new words directly" +
+                "                       \ndelete /word in swedish/ /word in english/ - delete words directly" +
+                "                       \ndelete - delete words with prompts" +
+                "                       \ntranslate /word in swedish/ or /word in english/ - translate word" +
+                "                       \ntranslate - translate word from english or swedish with prompts" +
+                "                       \nquit - quit program"
+               );
         }
     }
 }
