@@ -43,7 +43,7 @@
                                 Load(sr);
                             }
                         }
-                        catch (Exception FileNotFoundException)
+                        catch (FileNotFoundException)
                         {
                             Console.WriteLine("File not found");
                         }
