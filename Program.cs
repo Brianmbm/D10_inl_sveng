@@ -65,35 +65,54 @@
                             Console.WriteLine($"{gloss.word_swe}  - {gloss.word_eng}"); //Removed "-10", unclear if it did anything
                         }
                     }
-                    catch(Exception NullReferenceException)
+                    catch(NullReferenceException)
                     {
-                        Console.WriteLine("Load file before listing");
+                        Console.WriteLine("File not loaded");
                     }
                 }
                 else if (command == "new")
                 {
-                    NewWord(argument);//FIXME: System.NullReferenceException: Object reference not set to an instance of an object.When "new" without "load"
-                                       //TODO: Able to write too few or too many arguments, add "else"
+                    try
+                    {
+                        NewWord(argument);
+                                          
+                    }
+                    catch (NullReferenceException)
+                    {
+                        Console.WriteLine("File not loaded");
+                    }
                 }
+
                 else if (command == "delete")//FIXME: System.NullReferenceException: Object reference not set to an instance of an object. When "delete" before load
                                              //TODO: Change so Gloss is deleted with just word in one language
                                              //FIXME: System.ArgumentOutOfRangeException when writing words not on list
                 {
-                    string englishWord;
-                    string swedishWord;
-                    if (argument.Length == 3)
+                    try
                     {
-                        swedishWord = argument[1];
-                        englishWord = argument[2];
-                        DeleteWords(englishWord, swedishWord);
+                        string englishWord;
+                        string swedishWord;
+                        if (argument.Length == 3)
+                        {
+                            swedishWord = argument[1];
+                            englishWord = argument[2];
+                            DeleteWords(englishWord, swedishWord);
+                        }
+                        else if (argument.Length == 1)
+                        {
+                            Console.WriteLine("Write word in Swedish: ");
+                            swedishWord = Console.ReadLine();
+                            Console.Write("Write word in English: ");
+                            englishWord = Console.ReadLine();
+                            DeleteWords(englishWord, swedishWord);
+                        }
                     }
-                    else if (argument.Length == 1)
+                    catch (NullReferenceException) 
                     {
-                        Console.WriteLine("Write word in Swedish: ");
-                        swedishWord = Console.ReadLine();
-                        Console.Write("Write word in English: ");
-                        englishWord = Console.ReadLine();
-                        DeleteWords(englishWord,swedishWord);
+                        Console.WriteLine("File not loaded");
+                    }
+                    catch (ArgumentOutOfRangeException) 
+                    {
+                        Console.WriteLine("Word is not in the dictionary");
                     }
                 }
                 else if (command == "translate")//TODO: "Else" for words not on list
@@ -145,7 +164,7 @@
             dictionary.RemoveAt(index);
         }
 
-        private static void NewWord(string[] argument)
+        private static void NewWord(string[] argument)//TODO: Able to write too few or too many arguments, add "else"
         {
             if (argument.Length == 3)
             {
