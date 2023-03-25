@@ -18,7 +18,8 @@
         }
         static void Main(string[] args)
         {
-            string defaultFile = "..\\..\\..\\dict\\sweeng.lis";
+            string path = "..\\..\\..\\dict\\";
+            string defaultFile = "sweeng.lis";
             Console.WriteLine("Welcome to the dictionary app!");
             Help();
             do
@@ -34,14 +35,14 @@
                 {
                     if (argument.Length == 2)
                     {
-                        using (StreamReader sr = new StreamReader(argument[1]))
+                        using (StreamReader sr = new StreamReader(path +argument[1]))
                         {
                             Load(sr);
                         }
                     }
                     else if (argument.Length == 1)
                     {
-                        using (StreamReader sr = new StreamReader(defaultFile))
+                        using (StreamReader sr = new StreamReader(path + defaultFile))
                         {
                             Load(sr);
                         }
