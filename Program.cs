@@ -33,7 +33,8 @@
                 }
                 else if (command == "load")
                 {
-                    if (argument.Length == 2)
+                    
+                    if (argument.Length == 2)//FIXME: "System.IO.FileNotFoundException" if file doesnt exist
                     {
                         using (StreamReader sr = new StreamReader(path +argument[1]))
                         {
@@ -57,9 +58,12 @@
                 }
                 else if (command == "new")
                 {
-                    NewWord(argument);
+                    NewWord(argument);//FIXME: System.NullReferenceException: Object reference not set to an instance of an object.When "new" without "load"
+                                       //TODO: Able to write too few or too many arguments, add "else"
                 }
-                else if (command == "delete")
+                else if (command == "delete")//FIXME: System.NullReferenceException: Object reference not set to an instance of an object. When "delete" before load
+                                             //TODO: Change so Gloss is deleted with just word in one language
+                                             //FIXME: System.ArgumentOutOfRangeException when writing words not on list
                 {
                     string englishWord;
                     string swedishWord;
@@ -78,7 +82,7 @@
                         DeleteWords(englishWord,swedishWord);
                     }
                 }
-                else if (command == "translate")
+                else if (command == "translate")//TODO: "Else" for words not on list
                 {
                     string translateWord;
                     if (argument.Length == 2)
