@@ -60,13 +60,21 @@
                 }
                 else if (command == "delete")
                 {
+                    string englishWord;
+                    string swedishWord;
                     if (argument.Length == 3)
                     {
-                        DeleteWordsPrompt(argument);
+                        swedishWord = argument[1];
+                        englishWord = argument[2];
+                        DeleteWords(englishWord, swedishWord);
                     }
                     else if (argument.Length == 1)
                     {
-                        DeleteWords();
+                        Console.WriteLine("Write word in Swedish: ");
+                        swedishWord = Console.ReadLine();
+                        Console.Write("Write word in English: ");
+                        englishWord = Console.ReadLine();
+                        DeleteWords(englishWord,swedishWord);
                     }
                 }
                 else if (command == "translate")
@@ -106,25 +114,8 @@
                     Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
             }
         }
-
-        private static void DeleteWordsPrompt(string[] argument)
+        private static void DeleteWords(string englishWord, string swedishWord)
         {
-            int index = -1;
-            for (int i = 0; i < dictionary.Count; i++)
-            {
-                SweEngGloss gloss = dictionary[i];
-                if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
-                    index = i;
-            }
-            dictionary.RemoveAt(index);
-        }
-
-        private static void DeleteWords()
-        {
-            Console.WriteLine("Write word in Swedish: ");
-            string swedishWord = Console.ReadLine();
-            Console.Write("Write word in English: ");
-            string englishWord = Console.ReadLine();
             int index = -1;
             for (int i = 0; i < dictionary.Count; i++)
             {
