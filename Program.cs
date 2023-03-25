@@ -83,9 +83,9 @@
                     }
                 }
 
-                else if (command == "delete")//FIXME: System.NullReferenceException: Object reference not set to an instance of an object. When "delete" before load
+                else if (command == "delete")
                                              //TODO: Change so Gloss is deleted with just word in one language
-                                             //FIXME: System.ArgumentOutOfRangeException when writing words not on list
+                                             
                 {
                     try
                     {
@@ -164,7 +164,7 @@
             dictionary.RemoveAt(index);
         }
 
-        private static void NewWord(string[] argument)//TODO: Able to write too few or too many arguments, add "else"
+        private static void NewWord(string[] argument)
         {
             if (argument.Length == 3)
             {
@@ -178,6 +178,11 @@
                 string englishWord = Console.ReadLine();
                 dictionary.Add(new SweEngGloss(swedishWord, englishWord));
             }
+            else {
+
+                Console.WriteLine("Write >new to add new words with prompts or >new /word in swedish/ /word in english/ to add new words directly");
+                    
+                 }
         }
 
         private static void Load(StreamReader sr)
